@@ -8,33 +8,44 @@ const { Router } = require("express");
 const router = Router();
 
 // Definição de rotas
+// Lista todos os clientes
 router.get("/clientes", async (req, res) => {
   // SELECT * FROM clientes;
   const listaClientes = await Cliente.findAll();
   res.json(listaClientes);
 });
 
-// /clientes/1, 2
+// lista os pets que pertencem a um Cliente
+router.get("/clientes/:clienteId/pets", async (req, res) => {
+  const { clienteId } = req.params;
+
+  const ClientePet = await Pet.findAll({ where: { clienteId: clienteId } });
+  if (ClientePet) {
+    res.json(ClientePet);
+  } else {
+    res.status(404).json({ message: "Cliente não encontrado." });
+  }
+});
+
+// lista o endereço que pertencem a um Cliente
+router.get("/clientes/:clienteId/endereco", async (req, res) => {
+  const { clienteId } = req.params;
+
+  const clienteEnd = await Endereco.findOne({ where: { clienteId: clienteId } });
+
+  if (clienteEnd) {
+    res.json(clienteEnd);
+  } else {
+    res.status(404).json({ message: "Endereço de usuário não encontrado." });
+  }
+});
+
+// lista um determinado Cliente
 router.get("/clientes/:id", async (req, res) => {
-  // SELECT * FROM clientes WHERE id = 1;
   const cliente = await Cliente.findOne({
     where: { id: req.params.id },
     include: [Endereco], // trás junto os dados de endereço
   });
-
-  if (cliente) {
-    res.json(cliente);
-  } else {
-    res.status(404).json({ message: "Usuário não encontrado." });
-  }
-});
-// lista os pets que pertencem a um Cliente
-router.get("/clientes/:id/pets", async (req, res) => {
-  // SELECT * FROM clientes WHERE id = 1;
-  const cliente = await Cliente.findOne({
-    where: { id: req.params.id },
-  });
-
   if (cliente) {
     res.json(cliente);
   } else {
@@ -43,6 +54,10 @@ router.get("/clientes/:id/pets", async (req, res) => {
 });
 
 
+
+
+
+// adicionar Cliente
 router.post("/clientes", async (req, res) => {
   // Coletar os dados do req.body
   const { nome, email, telefone, endereco } = req.body;
@@ -60,6 +75,8 @@ router.post("/clientes", async (req, res) => {
     res.status(500).json({ message: "Um erro aconteceu." });
   }
 });
+
+
 
 // atualizar um cliente
 router.put("/clientes/:id", async (req, res) => {
@@ -107,16 +124,6 @@ router.delete("/clientes/:id", async (req, res) => {
   }
 });
 
-router.get("/clientes/pets/:clienteId", async (req, res) => {
-  const { clienteId } = req.params;
-
-  const ClientePet = await Pet.findAll({ where: { clienteId: clienteId } });
-  if (ClientePet) {
-    res.json(ClientePet);
-  } else {
-    res.status(404).json({ message: "Cliente não encontrado." });
-  }
-});
 
 
 
