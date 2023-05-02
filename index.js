@@ -3,7 +3,18 @@ const cors = require("cors");
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
+
 const Servico = require("./database/servico");
+const Produto = require("./database/produto");
+
+Produto.sync()
+  .then(() => {
+    console.log("Tabela criada com sucesso!");
+  })
+  .catch((error) => {
+    console.error("Erro ao criar a tabela:", error);
+  });
+
 
 // Configuração do App
 const app = express();
@@ -21,11 +32,14 @@ authenticate(connection); // efetivar a conexão
 const rotasClientes = require("./routes/clientes");
 const rotasPets = require("./routes/pets");
 const rotasServicos = require("./routes/servicos");
+const rotasProdutos = require("./routes/produtos");
+
 
 // Juntar ao app as rotas dos arquivos
 app.use(rotasClientes); // Configurar o grupo de rotas no app
 app.use(rotasPets);
 app.use(rotasServicos);
+app.use(rotasProdutos);
 
 
 // Escuta de eventos (listen)
