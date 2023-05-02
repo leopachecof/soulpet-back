@@ -15,7 +15,6 @@ router.get("/clientes", async (req, res) => {
   res.json(listaClientes);
 });
 
-
 // lista todos os pets que pertencem a um Cliente
 router.get("/clientes/:clienteId/pets", async (req, res) => {
   const { clienteId } = req.params;
@@ -28,7 +27,6 @@ router.get("/clientes/:clienteId/pets", async (req, res) => {
     res.status(404).json({ message: "Cliente não encontrado." });
   }
 });
-
 
 // lista o endereço que pertencem a um Cliente
 router.get("/clientes/:clienteId/endereco", async (req, res) => {
@@ -74,7 +72,6 @@ router.post("/clientes", async (req, res) => {
     res.status(500).json({ message: "Um erro aconteceu." });
   }
 });
-
 
 
 // atualizar um cliente
