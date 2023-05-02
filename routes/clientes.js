@@ -54,7 +54,9 @@ router.get("/clientes/:id", async (req, res) => {
   }
 });
 
-// adicionar cliente
+
+// Adiciona cliente
+
 router.post("/clientes", async (req, res) => {
   // Coletar os dados do req.body
   const { nome, email, telefone, endereco } = req.body;
