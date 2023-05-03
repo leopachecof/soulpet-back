@@ -1,6 +1,7 @@
 const Cliente = require("../database/cliente");
 const Endereco = require("../database/endereco");
 const Pet = require("../database/pet");
+const docPDF = require("pdfkit");
 
 const { Router } = require("express");
 
@@ -15,6 +16,43 @@ router.get("/clientes", async (req, res) => {
   res.json(listaClientes);
 });
 
+//Buscar relatório dos clientes em pdf
+
+router.get("/clientes/relatorio", async (req, res) => {
+  try {
+    const clientes = await Cliente.findAll({
+      include: [Pet],
+    });
+
+    const doc = new docPDF();
+    doc.pipe(res);
+    doc
+      .fontSize(16)
+      .text("Relatório de clientes", { align: "center" })
+      .moveDown();
+
+    clientes.forEach((cliente) => {
+      doc
+        .fontSize(12)
+        .text(
+          `Nome: ${cliente.nome} - Email: ${cliente.email} - Telefone: ${cliente.telefone}`,
+          { align: "justify" }
+        )
+        .moveDown()
+        ;
+
+      doc
+        .fontSize(12)
+        .text(`Quantidade de pets:${cliente.pets.length}`, { align: "justify" })
+        .moveDown();
+    });
+    doc.end()
+  } catch(error) {
+
+    console.error(error);
+    res.status(500).send('Erro ao gerar relatório de clientes.')
+  }
+});
 
 // lista todos os pets que pertencem a um Cliente
 router.get("/clientes/:clienteId/pets", async (req, res) => {
@@ -23,18 +61,18 @@ router.get("/clientes/:clienteId/pets", async (req, res) => {
   const ClientePet = await Pet.findAll({ where: { clienteId: clienteId } });
   if (ClientePet) {
     res.json(ClientePet);
-
   } else {
     res.status(404).json({ message: "Cliente não encontrado." });
   }
 });
 
-
 // lista o endereço que pertencem a um Cliente
 router.get("/clientes/:clienteId/endereco", async (req, res) => {
   const { clienteId } = req.params;
 
-  const clienteEnd = await Endereco.findOne({ where: { clienteId: clienteId } });
+  const clienteEnd = await Endereco.findOne({
+    where: { clienteId: clienteId },
+  });
 
   if (clienteEnd) {
     res.json(clienteEnd);
@@ -56,7 +94,8 @@ router.get("/clientes/:id", async (req, res) => {
   }
 });
 
-// adicionar cliente
+// Adiciona cliente
+
 router.post("/clientes", async (req, res) => {
   // Coletar os dados do req.body
   const { nome, email, telefone, endereco } = req.body;
@@ -74,8 +113,6 @@ router.post("/clientes", async (req, res) => {
     res.status(500).json({ message: "Um erro aconteceu." });
   }
 });
-
-
 
 // atualizar um cliente
 router.put("/clientes/:id", async (req, res) => {
@@ -122,7 +159,5 @@ router.delete("/clientes/:id", async (req, res) => {
     res.status(500).json({ message: "Um erro aconteceu." });
   }
 });
-
-
 
 module.exports = router;
