@@ -27,8 +27,6 @@ const schema = Joi.object({
     .required(),
 });
 
-// Definição de rotas
-
 // Buscar produtos geral e por filtragem
 
 router.get("/produtos", async (req, res) => {
