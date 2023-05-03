@@ -30,11 +30,13 @@ authenticate(connection); // efetivar a conexão
 const rotasClientes = require("./routes/clientes");
 const rotasPets = require("./routes/pets");
 const rotasProdutos = require("./routes/produtos");
+const rotasPedidos = require("./routes/pedidos")
 
 // Juntar ao app as rotas dos arquivos
 app.use(rotasClientes); // Configurar o grupo de rotas no app
 app.use(rotasPets);
 app.use(rotasProdutos);
+app.use(rotasPedidos);
 
 // Escuta de eventos (listen)
 app.listen(3001, () => {
