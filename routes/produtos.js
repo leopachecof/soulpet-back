@@ -83,8 +83,6 @@ router.post("/produtos", async (req, res) => {
     });
     res.status(201).json(novo);
   } catch (error) {
-    console.log(error);
-
     res.status(400).json({ message: "Dados inválidos." });
   }
 });
@@ -104,7 +102,6 @@ router.delete("/produtos/:id", async (req, res) => {
       res.status(404).json({ message: "Produto não encontrado" });
     }
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Um erro aconteceu." });
   }
 });
@@ -142,7 +139,6 @@ router.put("/produtos/:id", async (req, res) => {
 
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: "Dados inválidos" })
   }
 });

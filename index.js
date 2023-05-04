@@ -13,6 +13,22 @@ const app = express();
 app.use(express.json()); // Possibilitar transitar dados usando JSON
 app.use(morgan("dev"));
 
+// Configuração de Middleware
+// helmet
+const helmet = require("helmet");
+app.use(helmet());
+app.disable("x-powered-by");
+// express-session -> cookies de segurança
+const session = require("express-session");
+app.use(session({
+  secret : 's3Cur3',
+  name : 'sessionId',
+}));
+// Compression (Gzip) -> aumento de velocidade da app
+const compression = require('compression');
+app.use(compression())
+
+
 // Configurações de acesso
 app.use(cors({ origin: "http://localhost:3000" }));
 
@@ -25,6 +41,7 @@ const rotasClientes = require("./routes/clientes");
 const rotasPets = require("./routes/pets");
 const rotasServicos = require("./routes/servicos");
 const rotasProdutos = require("./routes/produtos");
+const healthcheck = require("./routes/healthchecker");
 const rotasPedidos = require("./routes/pedidos");
 const rotasAgendamentos = require("./routes/agendamentos");
 const rotaDashboard = require("./routes/dashboard");
@@ -34,14 +51,17 @@ app.use(rotasClientes);
 app.use(rotasPets);
 app.use(rotasServicos);
 app.use(rotasProdutos);
+app.use('/healthcheck', require('./routes/healthchecker'));
 app.use(rotasPedidos);
 app.use(rotasAgendamentos);
 app.use(rotaDashboard);
+
 
 // Escuta de eventos (listen)
 app.listen(3001, () => {
   // Gerar as tabelas a partir do model
   // Force = apaga tudo e recria as tabelas
-  connection.sync;
+  connection.sync();
+  // connection.sync({ force: true });
   console.log("Servidor rodando em http://localhost:3001/");
 });

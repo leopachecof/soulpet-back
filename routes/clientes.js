@@ -48,8 +48,6 @@ router.get("/clientes/relatorio", async (req, res) => {
     });
     doc.end()
   } catch(error) {
-
-    console.error(error);
     res.status(500).send('Erro ao gerar relatório de clientes.')
   }
 });
@@ -107,7 +105,6 @@ router.post("/clientes", async (req, res) => {
 
     res.status(201).json(novo);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: "Um erro aconteceu." });
   }
 });
@@ -134,7 +131,6 @@ router.put("/clientes/:id", async (req, res) => {
       res.status(404).json({ message: "Cliente não encontrado." });
     }
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Um erro aconteceu." });
   }
 });
@@ -153,9 +149,9 @@ router.delete("/clientes/:id", async (req, res) => {
       res.status(404).json({ message: "Cliente não encontrado." });
     }
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Um erro aconteceu." });
   }
 });
+
 
 module.exports = router;

@@ -36,7 +36,6 @@ router.post("/pets", async (req, res) => {
       res.status(404).json({ message: "Cliente não encontrado." });
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: "Um erro aconteceu." });
   }
 });
@@ -66,7 +65,6 @@ router.put("/pets/:id", async (req, res) => {
     }
   } catch (err) {
     // caso algum erro inesperado, a resposta ao cliente será essa
-    console.log(err);
     res.status(500).json({ message: "Um erro aconteceu." });
   }
 });
@@ -84,7 +82,6 @@ router.delete("/pets/:id", async (req, res) => {
       res.status(404).json({ message: "O pet não foi encontrado" });
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: "Um erro aconteceu." });
   }
 });
