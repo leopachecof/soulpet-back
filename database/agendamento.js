@@ -2,7 +2,6 @@ const { DataTypes } = require("sequelize");
 const { connection } = require("./database");
 
 const Agendamento = connection.define("agendamento", {
-
     petId: {
         type: DataTypes.INTEGER,
         allowNull: false,

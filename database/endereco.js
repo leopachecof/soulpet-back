@@ -3,7 +3,7 @@ const { connection } = require("./database");
 
 const Endereco = connection.define("endereco", {
   uf: {
-    type: DataTypes.STRING(2),
+    type: DataTypes.STRING,
     allowNull: false,
   },
   cidade: {
