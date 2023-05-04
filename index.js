@@ -8,15 +8,6 @@ const Servico = require("./database/servico");
 const Produto = require("./database/produto");
 const Agendamento = require("./database/agendamento");
 
-Produto.sync()
-  .then(() => {
-    console.log("Tabela criada com sucesso!");
-  })
-  .catch((error) => {
-    console.error("Erro ao criar a tabela:", error);
-  });
-
-
 // Configuração do App
 const app = express();
 app.use(express.json()); // Possibilitar transitar dados usando JSON
@@ -50,5 +41,6 @@ app.listen(3001, () => {
   // Gerar as tabelas a partir do model
   // Force = apaga tudo e recria as tabelas
   // connection.sync({ force: true });
+  connection.sync( );
   console.log("Servidor rodando em http://localhost:3001/");
 });

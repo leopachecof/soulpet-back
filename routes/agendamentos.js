@@ -2,13 +2,16 @@
 const Agendamento = require("../database/agendamento");
 const { Router } = require("express");
 const Joi = require("joi");
+const Servico = require("../database/servico");
+const Pet = require("../database/pet");
+const Cliente = require("../database/cliente");
 
 const router = Router();
 
 // Validação
 const schema = Joi.object({
     dataAgendada: Joi.date().required(),
-    realizada: Joi.boolean().required(),
+    descricao: Joi.string(),
     petId: Joi.number().required(),
     servicoId: Joi.number().required(),
 });
@@ -21,9 +24,10 @@ const schema = Joi.object({
 router.get("/agendamentos", async (req, res) => {
     
     try {
-        const listaAgendamento = await Agendamento.findAll();
+        const listaAgendamento = await Agendamento.findAll({include: [{model: Servico}, {model: Pet, include: {model: Cliente}}]});
         res.json(listaAgendamento);
     } catch(error) {
+        console.log(error)
         res.status(500).json({ message: "Um erro aconteceu." });
     }
 });
@@ -42,17 +46,14 @@ router.get("/agendamentos/:id", async (req, res) => {
 
 //////////////////////////////////////////////////////// Adicionar Agendamento
 router.post("/agendamentos", async (req, res) => {
-    const { dataAgendada, realizada, petId, servicoId } = req.body;
+    const { petId, servicoId, descricao, dataAgendada } = req.body;
     
     try {
         await schema.validateAsync(req.body);
         
-        const novoAgendamento= await Agendamento.create({
-            dataAgendada,
-            realizada,
-            petId,
-            servicoId
-        }) 
+        const novoAgendamento= await Agendamento.create(
+            { petId, servicoId, descricao, dataAgendada },
+            ); 
         res.status(201).json(novoAgendamento);
     } catch(error) {
         console.log(error);
@@ -115,9 +116,6 @@ router.delete("/agendamentos", async (req, res) => {
         res.status(500).json({ message: "Um erro aconteceu." });
       }
 });
-
-
-
 
 module.exports = router;
 

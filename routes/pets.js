@@ -3,11 +3,13 @@ const Pet = require("../database/pet");
 
 const { Router } = require("express");
 
-// Criar o grupo de rotas (/pets)
 const router = Router();
 
+// Definição de Rotas
+
+//////////////////////////////////////////////////////// Listar todos Pets
 router.get("/pets", async (req, res) => {
-  const listaPets = await Pet.findAll();
+  const listaPets = await Pet.findAll({include: [Cliente]});
   res.json(listaPets);
 });
 

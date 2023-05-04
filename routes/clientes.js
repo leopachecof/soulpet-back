@@ -43,9 +43,7 @@ router.get("/clientes/:clienteId/endereco", async (req, res) => {
 
 // lista um determinado Cliente
 router.get("/clientes/:id", async (req, res) => {
-  const cliente = await Cliente.findOne({
-    where: { id: req.params.id },
-    include: [Endereco], // trás junto os dados de endereço
+  const cliente = await Cliente.findOne({where: { id: req.params.id }, include: [Endereco], // trás junto os dados de endereço
   });
   if (cliente) {
     res.json(cliente);
