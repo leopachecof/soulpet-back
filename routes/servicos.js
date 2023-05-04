@@ -49,8 +49,6 @@ router.post("/servicos", async (req, res) => {
     }) 
         res.status(201).json(novoServico);
     } catch(error) {
-        console.log(error);
-
         res.status(400).json({ message: "Dados inválidos." });
     }
 });
@@ -72,7 +70,6 @@ router.put("/servicos/:id", async (req, res) => {
             res.status(404).json({ message: "Serviço não encontrado" });
         }
     } catch(error) {
-        console.log(error);
         res.status(500).json({ message: "Um erro aconteceu." });
 
     }
@@ -91,7 +88,6 @@ router.delete("/servicos/:id", async (req, res) =>{
             res.status(404).json({ message: "Serviço não encontrado." });
         }
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: "Um erro aconteceu." });
       }
 });
@@ -104,7 +100,6 @@ router.delete("/servicos", async (req, res) => {
         });
     res.status(200).json({ message: "Todos os serviços foram removidos." });
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: "Um erro aconteceu." });
       }
 });

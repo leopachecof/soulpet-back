@@ -98,7 +98,6 @@ router.delete("/agendamentos/:id", async (req, res) =>{
             res.status(404).json({ message: "Agendamento não encontrado." });
         }
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: "Um erro aconteceu." });
     }
 });
@@ -112,7 +111,6 @@ router.delete("/agendamentos", async (req, res) => {
         });
     res.status(200).json({ message: "Todos os agendamentos foram removidos." });
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: "Um erro aconteceu." });
       }
 });

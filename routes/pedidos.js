@@ -55,7 +55,6 @@ router.get("/pedidos/produtos/:id", async (req, res) => {
             });
         }
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Um erro aconteceu." });
     }
 });
@@ -83,7 +82,6 @@ router.get("/pedidos/clientes/:id", async (req, res) => {
             });
         }
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Um erro aconteceu." });
     }
 });
@@ -99,7 +97,6 @@ router.post("/pedidos", async (req, res) => {
         );
         res.status(201).json(novoPedido);
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Um erro aconteceu." });
     }
 });
@@ -121,7 +118,6 @@ router.put("/pedidos/:id", async (req, res) => {
             res.status(404).json({ message: "Pedido não encontrado" });
         }
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Um erro aconteceu." });
     }
 });
@@ -138,7 +134,6 @@ router.delete("/pedidos/:id", async (req, res) => {
             res.status(404).json({ message: "Pedido não encontrado." });
         }
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Um erro aconteceu." });
     }
 });
@@ -150,7 +145,6 @@ router.delete("/pedidos-all", async (req, res) => {
         await Pedidos.destroy({ truncate: true });
         res.json({ message: "Todos os pedidos foram removidos." });
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Um erro aconteceu." });
     }
 });
@@ -180,7 +174,6 @@ router.delete("/pedidos/cliente/:id", async (req, res) => {
             });
         }
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Um erro aconteceu." });
     }
 });
@@ -210,7 +203,6 @@ router.delete("/pedidos/produtos/:id", async (req, res) => {
             });
         }
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Um erro aconteceu." });
     }
 });
