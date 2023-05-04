@@ -3,18 +3,23 @@ const { connection } = require("./database");
 
 const Agendamento = connection.define("agendamento", {
     dataAgendada: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATEONLY,
         allowNull: false,
     },
     realizada: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+    },
+    petId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    servicoId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     }
 });
 
- 
-const Pet = require("./pet");
-const Servico = require("./servico");
 
 
 module.exports = Agendamento;

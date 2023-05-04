@@ -6,14 +6,7 @@ const morgan = require("morgan");
 
 const Servico = require("./database/servico");
 const Produto = require("./database/produto");
-
-Produto.sync()
-.then(() => {
-  console.log("Tabela criada com sucesso!");
-})
-.catch((error) => {
-  console.error("Erro ao criar a tabela:", error);
-});
+const Agendamento = require("./database/agendamento");
 
 
 // Configuração do App
@@ -26,7 +19,7 @@ app.use(morgan("dev"));
 const helmet = require("helmet");
 app.use(helmet());
 app.disable("x-powered-by");
-// express-session
+// express-session -> cookies de segurança
 const session = require("express-session");
 app.use(session({
   secret : 's3Cur3',
@@ -50,6 +43,9 @@ const rotasPets = require("./routes/pets");
 const rotasServicos = require("./routes/servicos");
 const rotasProdutos = require("./routes/produtos");
 const healthcheck = require("./routes/healthchecker");
+const rotasPedidos = require("./routes/pedidos");
+const rotasAgendamentos = require("./routes/agendamentos");
+
 
 // Juntar ao app as rotas dos arquivos
 app.use(rotasClientes); // Configurar o grupo de rotas no app
@@ -57,6 +53,9 @@ app.use(rotasPets);
 app.use(rotasServicos);
 app.use(rotasProdutos);
 app.use('/healthcheck', require('./routes/healthchecker'));
+app.use(rotasPedidos);
+app.use(rotasAgendamentos);
+
 
 
 // Escuta de eventos (listen)

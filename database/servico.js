@@ -13,7 +13,7 @@ const Servico = connection.define("servico", {
     }
 });
 
- 
+
 const Pet = require("./pet");
 const Agendamento = require("./agendamento");
 
