@@ -27,7 +27,6 @@ router.get("/agendamentos", async (req, res) => {
         const listaAgendamento = await Agendamento.findAll({include: [{model: Servico}, {model: Pet, include: {model: Cliente}}]});
         res.json(listaAgendamento);
     } catch(error) {
-        console.log(error)
         res.status(500).json({ message: "Um erro aconteceu." });
     }
 });
@@ -56,7 +55,6 @@ router.post("/agendamentos", async (req, res) => {
             ); 
         res.status(201).json(novoAgendamento);
     } catch(error) {
-         
         res.status(400).json({ message: "Dados inválidos." });
     }
 });
@@ -78,7 +76,6 @@ router.put("/agendamentos/:id", async (req, res) => {
             res.status(404).json({ message: "Agendamento não encontrado" });
         }
     } catch(error) {
-        console.log(error);
         res.status(500).json({ message: "Um erro aconteceu." });
 
     }
