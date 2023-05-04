@@ -56,8 +56,7 @@ router.post("/agendamentos", async (req, res) => {
             ); 
         res.status(201).json(novoAgendamento);
     } catch(error) {
-        console.log(error);
-        
+         
         res.status(400).json({ message: "Dados inválidos." });
     }
 });
