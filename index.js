@@ -16,8 +16,9 @@ app.use(morgan("dev"));
 // Configuração de Middleware
 // helmet
 const helmet = require("helmet");
-app.use(helmet());
-app.disable("x-powered-by");
+// app.use(helmet());
+// app.disable("x-powered-by");
+// Esta função comentada acima de helmet ela conflita com a geração de relatório em formato PDF. Por isso deichamos ela comentada.
 // express-session -> cookies de segurança
 const session = require("express-session");
 app.use(session({
