@@ -16,9 +16,16 @@ const Servico = connection.define("servico", {
 
 const Pet = require("./pet");
 const Agendamento = require("./agendamento");
+const Cliente = require("./cliente");
 
 Pet.hasMany(Agendamento);
 Servico.hasMany(Agendamento);
+Cliente.hasMany(Agendamento);
+
+Agendamento.belongsTo(Servico);
+Agendamento.belongsTo(Pet)
+Agendamento.belongsTo(Cliente)
+
 
 module.exports = Servico;
 

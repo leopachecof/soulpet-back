@@ -8,7 +8,6 @@ const Servico = require("./database/servico");
 const Produto = require("./database/produto");
 const Agendamento = require("./database/agendamento");
 
-
 // Configuração do App
 const app = express();
 app.use(express.json()); // Possibilitar transitar dados usando JSON
@@ -45,17 +44,17 @@ const rotasProdutos = require("./routes/produtos");
 const healthcheck = require("./routes/healthchecker");
 const rotasPedidos = require("./routes/pedidos");
 const rotasAgendamentos = require("./routes/agendamentos");
-
+const rotaDashboard = require("./routes/dashboard");
 
 // Juntar ao app as rotas dos arquivos
-app.use(rotasClientes); // Configurar o grupo de rotas no app
+app.use(rotasClientes);
 app.use(rotasPets);
 app.use(rotasServicos);
 app.use(rotasProdutos);
 app.use('/healthcheck', require('./routes/healthchecker'));
 app.use(rotasPedidos);
 app.use(rotasAgendamentos);
-
+app.use(rotaDashboard);
 
 
 // Escuta de eventos (listen)
