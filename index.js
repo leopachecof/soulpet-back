@@ -4,10 +4,6 @@ require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 
-const Servico = require("./database/servico");
-const Produto = require("./database/produto");
-const Agendamento = require("./database/agendamento");
-
 // Configuração do App
 const app = express();
 app.use(express.json()); // Possibilitar transitar dados usando JSON
@@ -30,7 +26,7 @@ const rotasAgendamentos = require("./routes/agendamentos");
 
 
 // Juntar ao app as rotas dos arquivos
-app.use(rotasClientes); // Configurar o grupo de rotas no app
+app.use(rotasClientes);
 app.use(rotasPets);
 app.use(rotasServicos);
 app.use(rotasProdutos);

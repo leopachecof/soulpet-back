@@ -64,7 +64,7 @@ router.post("/agendamentos", async (req, res) => {
 
 //////////////////////////////////////////////////////// Editar Agendamento
 router.put("/agendamentos/:id", async (req, res) => {
-    const { dataAgendada, realizada, petId, servicoId } = req.body;
+    const { petId, servicoId, descricao, dataAgendada } = req.body;
     const { id } = req.params;
 
     try {
@@ -73,7 +73,7 @@ router.put("/agendamentos/:id", async (req, res) => {
         const agendamento = await Agendamento.findOne({ where: { id } });
 
         if(agendamento) {
-            await Agendamento.update({ dataAgendada, realizada, petId, servicoId }, { where: { id } });
+            await Agendamento.update({ petId, servicoId, descricao, dataAgendada }, { where: { id } });
             res.status(200).json({ message: "Agendamento atualizado." });
         } else {
             res.status(404).json({ message: "Agendamento não encontrado" });
