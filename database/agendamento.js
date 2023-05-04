@@ -3,7 +3,7 @@ const { connection } = require("./database");
 
 const Agendamento = connection.define("agendamento", {
     dataAgendada: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
     },
     realizada: {
@@ -11,11 +11,11 @@ const Agendamento = connection.define("agendamento", {
         allowNull: false,
     },
     petId: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     servicoId: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
     }
 });

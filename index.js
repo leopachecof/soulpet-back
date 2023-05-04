@@ -8,15 +8,6 @@ const Servico = require("./database/servico");
 const Produto = require("./database/produto");
 const Agendamento = require("./database/agendamento");
 
-Produto.sync()
-  .then(() => {
-    console.log("Tabela criada com sucesso!");
-  })
-  .catch((error) => {
-    console.error("Erro ao criar a tabela:", error);
-  });
-
-
 // Configuração do App
 const app = express();
 app.use(express.json()); // Possibilitar transitar dados usando JSON
@@ -34,9 +25,9 @@ const rotasClientes = require("./routes/clientes");
 const rotasPets = require("./routes/pets");
 const rotasServicos = require("./routes/servicos");
 const rotasProdutos = require("./routes/produtos");
-const rotasPedidos = require("./routes/pedidos")
+const rotasPedidos = require("./routes/pedidos");
 const rotasAgendamentos = require("./routes/agendamentos");
-
+const rotaDashboard = require("./routes/dashboard");
 
 // Juntar ao app as rotas dos arquivos
 app.use(rotasClientes); // Configurar o grupo de rotas no app
@@ -45,12 +36,12 @@ app.use(rotasServicos);
 app.use(rotasProdutos);
 app.use(rotasPedidos);
 app.use(rotasAgendamentos);
-
+app.use(rotaDashboard);
 
 // Escuta de eventos (listen)
 app.listen(3001, () => {
   // Gerar as tabelas a partir do model
   // Force = apaga tudo e recria as tabelas
-  // connection.sync({ force: true });
+  connection.sync;
   console.log("Servidor rodando em http://localhost:3001/");
 });
