@@ -27,6 +27,7 @@ const Cliente = connection.define("cliente", {
 
 // Associação 1:1 (One-to-One)
 const Endereco = require("./endereco");
+const Pet = require("./pet");
 
 // Cliente tem um Endereço
 // Endereço ganha uma chave estrangeira (nome do model + Id)
